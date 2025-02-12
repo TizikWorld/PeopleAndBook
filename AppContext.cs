@@ -11,6 +11,8 @@ namespace PeopleAndBook
     {
         // Объекты таблицы Users
         public DbSet<User> Users { get; set; }
+        // Объекты таблицы Books
+        public DbSet<Book> Books { get; set; }
 
         public AppContext()
         {
@@ -19,7 +21,7 @@ namespace PeopleAndBook
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"DServer=localhost\SQLEXPRESS;Database=EF;Trusted_Connection=True;TrustServerCertificate=True;");
+            optionsBuilder.UseSqlServer(@"Server=localhost\SQLEXPRESS;Database=UserAndBook;Trusted_Connection=True;TrustServerCertificate=True;");
         }
     }
 }

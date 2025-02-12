@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using PeopleAndBook.Repository;
 
 namespace PeopleAndBook
 {
@@ -6,16 +7,13 @@ namespace PeopleAndBook
     {
         static void Main(string[] args)
         {
-            using (var db = new PeopleAndBook.AppContext())
-            {
-                var user1 = new User { Name = "Arthur", Email = "Admin" };
-                var user2 = new User { Name = "Klim", Email = "User" };
+            Console.WriteLine("Старт PeopleAndBook");
 
-                db.Users.Add(user1);
-                db.Users.Add(user2);
-                db.SaveChanges();
-                Console.ReadKey();
-            }
+            BookRepository bookRepository = new BookRepository();
+
+            bookRepository.SelectBook(1);
+            bookRepository.DeleteBook(2);
+            bookRepository.UpdateYearBook(1, 999);
         }
     }
 }
