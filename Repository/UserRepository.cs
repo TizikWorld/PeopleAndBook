@@ -65,17 +65,17 @@ namespace PeopleAndBook.Repository
             {
                 using (var db = new AppContext())
                 {
-                    var book = db.Books.Where(book => book.Id == id).FirstOrDefault();//Создание переменной
+                    var user = db.Users.Where(user => user.Id == id).FirstOrDefault();//Создание переменной
 
-                    if (book == null) { Console.WriteLine($"Книга с ИД({id}) не найдена!"); return; }
+                    if (user == null) { Console.WriteLine($"Пользователь с ИД({id}) не найден!"); return; }
 
-                    string name = book.Name;
+                    string name = user.Name;
 
-                    db.Books.RemoveRange(book);
+                    db.Users.RemoveRange(user);
 
                     db.SaveChanges();
 
-                    Console.WriteLine($"Книга {name} успешно удалена");
+                    Console.WriteLine($"Пользователь {name} успешно удален");
                 }
             }
             catch (Exception ex)
@@ -86,28 +86,26 @@ namespace PeopleAndBook.Repository
 
         }
         /// <summary>
-        /// Обновление года выпуска книги
+        /// Обновление почты пользователя
         /// </summary>
         /// <param name="id">ИД</param>
-        public void UpdateYearBook(int id, int year)
+        public void UpdateEmailUser(int id, string email)
         {
             try
             {
                 using (var db = new AppContext())
                 {
-                    var book = db.Books.Where((book) => book.Id == id).FirstOrDefault(); // получение одной книги
+                    var user = db.Users.Where(user => user.Id == id).FirstOrDefault(); // получение одной книги
 
-                    if (book == null) { Console.WriteLine($"Книга с ИД({id}) не найдена!"); return; }
+                    if (user == null) { Console.WriteLine($"Пользователь с ИД({id}) не найден!"); return; }
 
-                    var name = book.Name;
+                    user.Email = email;
 
-                    book.Year = year;
-
-                    db.Books.Update(book);
+                    db.Users.Update(user);
 
                     db.SaveChanges();
 
-                    Console.WriteLine($"Книга {book.Name} успешно изменила год выпуска на {book.Year}");
+                    Console.WriteLine($"Пользователь {user.Name} успешно изменил почту на {user.Email}");
                 }
             }
             catch (Exception ex)
