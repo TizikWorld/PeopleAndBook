@@ -95,7 +95,7 @@ namespace PeopleAndBook.Repository
             {
                 using (var db = new AppContext())
                 {
-                    var user = db.Users.Where(user => user.Id == id).FirstOrDefault(); // получение одной книги
+                    var user = db.Users.Where(user => user.Id == id).FirstOrDefault(); // получение одного пользователя
 
                     if (user == null) { Console.WriteLine($"Пользователь с ИД({id}) не найден!"); return; }
 
@@ -106,6 +106,35 @@ namespace PeopleAndBook.Repository
                     db.SaveChanges();
 
                     Console.WriteLine($"Пользователь {user.Name} успешно изменил почту на {user.Email}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Возникло исключение {ex.Message}");
+                return;
+            }
+        }
+        public void AddBooklUser(int iduser, string namebook)//Используется многие ко многим, так как бывает что книг может быть несколько штук
+        {
+            try
+            {
+                using (var db = new AppContext())
+                {
+                    var user = db.Users.Where(user => user.Id == iduser).FirstOrDefault(); // получение одного пользователя
+
+                    if (user == null) { Console.WriteLine($"Пользователь с ИД({iduser}) не найден!"); return; }
+
+                    var book = db.Books.Where(book => book.Name == namebook).FirstOrDefault(); // получение книги
+
+                    if (user == null) { Console.WriteLine($"Книга с названием ({namebook}) не найдена!"); return; }
+
+                    user.Books.Add(book);
+
+                    db.Users.Update(user);
+
+                    db.SaveChanges();
+
+                    Console.WriteLine($"Пользователь {user.Name} успешно взял книгу {book.Name}");
                 }
             }
             catch (Exception ex)

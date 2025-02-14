@@ -16,6 +16,7 @@ namespace PeopleAndBook
 
         public AppContext()
         {
+            //Database.EnsureDeleted();
             Database.EnsureCreated();
         }
 
