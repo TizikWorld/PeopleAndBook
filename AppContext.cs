@@ -14,6 +14,11 @@ namespace PeopleAndBook
         // Объекты таблицы Books
         public DbSet<Book> Books { get; set; }
 
+        public void DeleteDB()
+        {
+            Database.EnsureDeleted();
+        }
+
         public AppContext()
         {
             //Database.EnsureDeleted();
